@@ -2,7 +2,7 @@ cd ~
 path=~
 map="/download"
 pad=$path$map
-echo $pad
+echo stop 1 $pad
 #if [ -d $pad ]; then
   # Control will enter here if $DIRECTORY exists.
 #	mkdir $pad
@@ -12,8 +12,14 @@ echo $pad
 #fi
 
 mkdir $pad
-rm -rf $pad
+extra="/*"
+#$pad2=$path$map$extra
+rm -rf $path$map$extra
+echo $pad2
+
+
 cd $pad
+echo $pad
 #mkdir /home/pi/project/download/api
 #cd /home/pi/project/download/api
 #wget ftp://ftpuser:breakers@192.168.0.77/ftp/project/api/*
