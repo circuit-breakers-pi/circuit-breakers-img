@@ -380,6 +380,7 @@ sudo echo "CONFIG_rotation_weekly=35" >> /etc/automysqlbackup/myserver.conf
 sudo echo "CONFIG_rotation_monthly=150" >> /etc/automysqlbackup/myserver.conf
 
 
+
 sudo echo "13 13    * * * /usr/local/bin/automysqlbackup /etc/automysqlbackup/myserver.conf" >> /var/spool/cron/crontab/root
 
 
@@ -410,7 +411,3 @@ sudo echo "sudo start grafana-server \n exit 0" >> /etc/rc.local
 #------firewall--------
 #sudo apt-get install -y ufw
 #sudo ufw allow 'Apache Full'
-
-
-
-sudo bash script.sh
