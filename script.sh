@@ -79,3 +79,6 @@ sudo mv -f $pad /var/www/html
 #sudo mv -f /home/pi/project/download/BuildCircuitFrontend/CircuitFrontend/assets /var/www/html
 
 #sudo mv -f /home/pi/project/download/* /var/www/html/
+
+sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+sudo service apache2 restart
