@@ -1,0 +1,421 @@
+                    }
+                    this.processenl.push(proces);
+                }
+            });
+            this.processen = this.makeObservable();
+        });
+    }
+    ngOnInit() {
+    }
+    makeObservable() {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(this.processenl);
+    }
+};
+ToonActieveVinificatiesComponent.ctorParameters = () => [
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
+    { type: src_app_services_services_service__WEBPACK_IMPORTED_MODULE_2__["ServicesService"] },
+    { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__["DomSanitizer"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] }
+];
+ToonActieveVinificatiesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-toon-actieve-vinificaties',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./toon-actieve-vinificaties.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/toon-vinificaties/toon-actieve-vinificaties/toon-actieve-vinificaties.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./toon-actieve-vinificaties.component.css */ "./src/app/toon-vinificaties/toon-actieve-vinificaties/toon-actieve-vinificaties.component.css")).default]
+    })
+], ToonActieveVinificatiesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/toon-vinificaties/toon-details-vinificaties/toon-details-vinificaties.component.css":
+/*!*****************************************************************************************************!*\
+  !*** ./src/app/toon-vinificaties/toon-details-vinificaties/toon-details-vinificaties.component.css ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("table {\r\n    width: 100%;\r\n  }\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdG9vbi12aW5pZmljYXRpZXMvdG9vbi1kZXRhaWxzLXZpbmlmaWNhdGllcy90b29uLWRldGFpbHMtdmluaWZpY2F0aWVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxXQUFXO0VBQ2IiLCJmaWxlIjoic3JjL2FwcC90b29uLXZpbmlmaWNhdGllcy90b29uLWRldGFpbHMtdmluaWZpY2F0aWVzL3Rvb24tZGV0YWlscy12aW5pZmljYXRpZXMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInRhYmxlIHtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gIH0iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/toon-vinificaties/toon-details-vinificaties/toon-details-vinificaties.component.ts":
+/*!****************************************************************************************************!*\
+  !*** ./src/app/toon-vinificaties/toon-details-vinificaties/toon-details-vinificaties.component.ts ***!
+  \****************************************************************************************************/
+/*! exports provided: ToonDetailsVinificatiesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToonDetailsVinificatiesComponent", function() { return ToonDetailsVinificatiesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_services_services_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/services.service */ "./src/app/services/services.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+
+
+
+
+
+
+
+let ToonDetailsVinificatiesComponent = class ToonDetailsVinificatiesComponent {
+    constructor(fb, _service, route, router) {
+        this.fb = fb;
+        this._service = _service;
+        this.route = route;
+        this.router = router;
+        this.eventl = new Array();
+        this.metingl = new Array();
+        this.alarml = new Array();
+        this.gebruikerl = new Array();
+        this.displayedColumnsMeting = ['soortMeting.naam', 'meting', 'tijd'];
+        this.displayedColumnsEvent = ['soortEvent.naam', 'datum'];
+        this.displayedColumnsAlarm = ['bericht', 'datum'];
+        this.routeSub = this.route.params.subscribe(params => {
+            this.id = params['id'];
+        });
+        this.getProcess();
+        this.getEvents();
+        this.getHandmatigeMetingen();
+        this.getAlarmLog();
+    }
+    getProcess() {
+        this._service.getProcesById(this.id).subscribe(proces => {
+            var druiflijst = new Array();
+            this.process = proces;
+            this._service.getVatById(proces.vatId).subscribe(vat => { this.process.vat = vat; });
+            this._service.getPersmethodeById(proces.persmethodeId).subscribe(persmethode => { this.process.persmethode = persmethode; });
+            this._service.getWijnTypeById(proces.wijnTypeId).subscribe(wijnType => { this.process.wijnType = wijnType; });
+            this._service.getAllDruifsoortenByVinificatieId(proces.id).subscribe(result => {
+                result.records.forEach(druifsoort => {
+                    druiflijst.push(druifsoort);
+                });
+                this.process.druif = Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["of"])(druiflijst);
+            });
+        });
+    }
+    getEvents() {
+        this._service.getAllEventsByVinificatieId(this.id).subscribe(result => {
+            result.records.forEach(event => {
+                this._service.getSoortEventById(event.soortEventId).subscribe(soortEvent => { event.soortEvent = soortEvent; });
+                this.eventl.push(event);
+            });
+            this.events = this.makeObservable(this.eventl);
+            this.dataSourceEvent = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](this.eventl);
+            this.dataSourceEvent.paginator = this.eventsPaginator;
+            this.dataSourceEvent.sort = this.eventsSort;
+            this.dataSourceEvent.filterPredicate = (event, filter) => {
+                let valid = false;
+                const transformedFilter = filter.trim().toLowerCase();
+                Object.keys(event).map(key => {
+                    if (key === 'soortEvent') {
+                        Object.keys(event[key]).map(naam => {
+                            if (('' + event[key][naam]).toLowerCase().includes(transformedFilter)) {
+                                valid = true;
+                            }
+                        });
+                    }
+                    else {
+                        if (('' + event[key]).toLowerCase().includes(transformedFilter)) {
+                            valid = true;
+                        }
+                    }
+                });
+                return valid;
+            };
+        });
+    }
+    getHandmatigeMetingen() {
+        this._service.getAllHandmatigeMetingenByVinificatieId(this.id).subscribe(result => {
+            result.records.forEach(meting => {
+                this._service.getSoortMetingById(meting.soortMetingId).subscribe(soortMeting => { meting.soortMeting = soortMeting; });
+                this.metingl.push(meting);
+            });
+            this.metingen = this.makeObservable(this.metingl);
+            this.dataSourceMeting = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](this.metingl);
+            this.dataSourceMeting.paginator = this.metingPaginator;
+            this.dataSourceMeting.sort = this.metingSort;
+            this.dataSourceMeting.filterPredicate = (met, filter) => {
+                let valid = false;
+                const transformedFilter = filter.trim().toLowerCase();
+                Object.keys(met).map(key => {
+                    if (key === 'soortMeting') {
+                        Object.keys(met[key]).map(naam => {
+                            if (('' + met[key][naam]).toLowerCase().includes(transformedFilter)) {
+                                valid = true;
+                            }
+                        });
+                    }
+                    else {
+                        if (('' + met[key]).toLowerCase().includes(transformedFilter)) {
+                            valid = true;
+                        }
+                    }
+                });
+                return valid;
+            };
+        });
+    }
+    getAlarmLog() {
+        this._service.getAlarmLogByVinificatieId(this.id).subscribe(result => {
+            result.records.forEach(alarmLog => {
+                this.alarml.push(alarmLog);
+            });
+            this.alarmLog = this.makeObservable(this.alarml);
+            this.dataSourceAlarm = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](this.alarml);
+            this.dataSourceAlarm.paginator = this.alarmPaginator;
+            this.dataSourceAlarm.sort = this.alarmSort;
+        });
+    }
+    applyFilterMeting(filterValue) {
+        this.dataSourceMeting.filter = filterValue;
+    }
+    applyFilterEvent(filterValue) {
+        this.dataSourceEvent.filter = filterValue;
+    }
+    applyFilterAlarm(filterValue) {
+        this.dataSourceAlarm.filter = filterValue;
+    }
+    ngOnInit() {
+    }
+    makeObservable(variabele) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["of"])(variabele);
+    }
+};
+ToonDetailsVinificatiesComponent.ctorParameters = () => [
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
+    { type: src_app_services_services_service__WEBPACK_IMPORTED_MODULE_4__["ServicesService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('eventsSort', { static: true })
+], ToonDetailsVinificatiesComponent.prototype, "eventsSort", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('metingSort', { static: true })
+], ToonDetailsVinificatiesComponent.prototype, "metingSort", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('alarmSort', { static: true })
+], ToonDetailsVinificatiesComponent.prototype, "alarmSort", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('eventsPaginator', { static: true })
+], ToonDetailsVinificatiesComponent.prototype, "eventsPaginator", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('metingPaginator', { static: true })
+], ToonDetailsVinificatiesComponent.prototype, "metingPaginator", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('alarmPaginator', { static: true })
+], ToonDetailsVinificatiesComponent.prototype, "alarmPaginator", void 0);
+ToonDetailsVinificatiesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-toon-details-vinificaties',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./toon-details-vinificaties.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/toon-vinificaties/toon-details-vinificaties/toon-details-vinificaties.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./toon-details-vinificaties.component.css */ "./src/app/toon-vinificaties/toon-details-vinificaties/toon-details-vinificaties.component.css")).default]
+    })
+], ToonDetailsVinificatiesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/toon-vinificaties/toon-non-actieve-vinificaties/toon-non-actieve-vinificaties.component.css":
+/*!*************************************************************************************************************!*\
+  !*** ./src/app/toon-vinificaties/toon-non-actieve-vinificaties/toon-non-actieve-vinificaties.component.css ***!
+  \*************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("table {\r\n  width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdG9vbi12aW5pZmljYXRpZXMvdG9vbi1ub24tYWN0aWV2ZS12aW5pZmljYXRpZXMvdG9vbi1ub24tYWN0aWV2ZS12aW5pZmljYXRpZXMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQVc7QUFDYiIsImZpbGUiOiJzcmMvYXBwL3Rvb24tdmluaWZpY2F0aWVzL3Rvb24tbm9uLWFjdGlldmUtdmluaWZpY2F0aWVzL3Rvb24tbm9uLWFjdGlldmUtdmluaWZpY2F0aWVzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0YWJsZSB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/toon-vinificaties/toon-non-actieve-vinificaties/toon-non-actieve-vinificaties.component.ts":
+/*!************************************************************************************************************!*\
+  !*** ./src/app/toon-vinificaties/toon-non-actieve-vinificaties/toon-non-actieve-vinificaties.component.ts ***!
+  \************************************************************************************************************/
+/*! exports provided: ToonNonActieveVinificatiesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToonNonActieveVinificatiesComponent", function() { return ToonNonActieveVinificatiesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var src_app_services_services_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/services.service */ "./src/app/services/services.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+
+
+
+
+
+
+
+let ToonNonActieveVinificatiesComponent = class ToonNonActieveVinificatiesComponent {
+    constructor(fb, _service, router) {
+        this.fb = fb;
+        this._service = _service;
+        this.router = router;
+        this.processenl = new Array();
+        this.displayedColumns = ['naam', 'vat.nummer', 'wijnType.naam', 'jaargang', 'persHoeveelheid'];
+        this.instantiateLists();
+    }
+    instantiateLists() {
+        this._service.getAllProcessen().subscribe(result => {
+            result.records.forEach(proces => {
+                proces.druif = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Observable"]();
+                if (proces.actief == 0) {
+                    this._service.getVatById(proces.vatId).subscribe(vat => { proces.vat = vat; });
+                    this._service.getWijnTypeById(proces.wijnTypeId).subscribe(wijnType => { proces.wijnType = wijnType; });
+                    proces.naam = "Vinificatie " + proces.id;
+                    this.processenl.push(proces);
+                }
+            });
+            this.processen = this.makeObservable();
+            this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatTableDataSource"](this.processenl);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sortingDataAccessor = (item, property) => {
+                switch (property) {
+                    case 'vat.nummer': return item.vat.nummer;
+                    case 'wijnType.naam': return item.wijnType.naam;
+                    default: return item[property];
+                }
+            };
+            this.dataSource.sort = this.sort;
+            this.dataSource.filterPredicate = (p, filter) => {
+                let valid = false;
+                const transformedFilter = filter.trim().toLowerCase();
+                Object.keys(p).map(key => {
+                    if (key === 'vat' || key == 'wijnType') {
+                        Object.keys(p[key]).map(naam => {
+                            if (('' + p[key][naam]).toLowerCase().includes(transformedFilter)) {
+                                valid = true;
+                            }
+                        });
+                    }
+                    else {
+                        if (('' + p[key]).toLowerCase().includes(transformedFilter)) {
+                            valid = true;
+                        }
+                    }
+                });
+                return valid;
+            };
+        });
+    }
+    applyFilter(filterValue) {
+        this.dataSource.filter = filterValue;
+    }
+    ngOnInit() {
+    }
+    makeObservable() {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])(this.processenl);
+    }
+};
+ToonNonActieveVinificatiesComponent.ctorParameters = () => [
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
+    { type: src_app_services_services_service__WEBPACK_IMPORTED_MODULE_3__["ServicesService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_6__["MatPaginator"], { static: true })
+], ToonNonActieveVinificatiesComponent.prototype, "paginator", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_6__["MatSort"], { static: true })
+], ToonNonActieveVinificatiesComponent.prototype, "sort", void 0);
+ToonNonActieveVinificatiesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-toon-non-actieve-vinificaties',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./toon-non-actieve-vinificaties.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/toon-vinificaties/toon-non-actieve-vinificaties/toon-non-actieve-vinificaties.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./toon-non-actieve-vinificaties.component.css */ "./src/app/toon-vinificaties/toon-non-actieve-vinificaties/toon-non-actieve-vinificaties.component.css")).default]
+    })
+], ToonNonActieveVinificatiesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/environments/environment.ts":
+/*!*****************************************!*\
+  !*** ./src/environments/environment.ts ***!
+  \*****************************************/
+/*! exports provided: environment */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+
+const environment = {
+    production: false
+};
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+
+/***/ }),
+
+/***/ "./src/main.ts":
+/*!*********************!*\
+  !*** ./src/main.ts ***!
+  \*********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm2015/platform-browser-dynamic.js");
+/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+
+if (_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["enableProdMode"])();
+}
+Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_3__["AppModule"])
+    .catch(err => console.error(err));
+
+
+/***/ }),
+
+/***/ 0:
+/*!***************************!*\
+  !*** multi ./src/main.ts ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! C:\Angular\Frontend\CircuitFrontend\src\main.ts */"./src/main.ts");
+
+
+/***/ })
+
+},[[0,"runtime","vendor"]]]);
+//# sourceMappingURL=main-es2015.js.map
