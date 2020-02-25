@@ -25,8 +25,8 @@ sudo echo '<data>' >> /home/pi/xml/vatid.xml
 sudo echo '	<vatId></vatId>' >> /home/pi/xml/vatid.xml
 sudo echo '</data>' >> /home/pi/xml/vatid.xml
 
-sudo sh -c "echo 'dtparam=spi=on'" >> /boot/config.txt"
-sudo sh -c "echo 'dtoverlay=w1-gpio'" >> /boot/config.txt"
+sudo sh -c "echo 'dtparam=spi=on'" >> /boot/config.txt
+sudo sh -c "echo 'dtoverlay=w1-gpio'" >> /boot/config.txt
 
 sudo touch /lib/systemd/system/measurements.service
 
