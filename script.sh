@@ -80,5 +80,7 @@ sudo mv -f $pad /var/www/html
 
 #sudo mv -f /home/pi/project/download/* /var/www/html/
 
+sudo rm /var/www/html/main-es2015.js
+sudo bash ./build_builder.sh
 sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
 sudo service apache2 restart
