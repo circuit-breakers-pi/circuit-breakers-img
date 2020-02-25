@@ -57,5 +57,8 @@ sudo sh -c "echo 'WantedBy=default.target'" >> /lib/systemd/system/measurements.
 sudo chmod a-rwx /lib/systemd/system/measurements.service
 sudo chmod 644 /lib/systemd/system/measurements.service
 
+sudo systemctl daemon-reload
+sudo systemctl enable measurements.service
+
 sudo reboot
 
