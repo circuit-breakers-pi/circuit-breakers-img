@@ -1,0 +1,11 @@
+#!/bin/bash
+sudo touch measurements.py
+sudo cat ./measurements_part1 > measurements.py
+
+echo What is the IP address of your server?
+read ip
+
+echo "serverIp = '$ip'" > measurements.py
+
+sudo cat ./measurements_part2 > measurements.py
+
