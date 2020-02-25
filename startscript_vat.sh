@@ -26,7 +26,6 @@ sudo cat ./measurements_part2 >> /home/pi/scripts/measurements.py
 
 sudo rm ./measurements_part*
 
-sudo rm -- "$0"
 mkdir /home/pi/log
 touch /home/pi/log/errorlog.log
 
@@ -61,5 +60,6 @@ sudo chmod 644 /lib/systemd/system/measurements.service
 sudo systemctl daemon-reload
 sudo systemctl enable measurements.service
 
-sudo reboot
+sudo rm -- "$0"
 
+sudo reboot
