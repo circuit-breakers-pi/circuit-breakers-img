@@ -177,7 +177,7 @@ def updateAlarmLogDb(bericht , type, alarmId):
 		# Prepare a cursor object
 		cursor = db.cursor()
 		# execute SQL query using execute() method.
-		cursor.execute("SELECT id FROM `AlarmLog` WHERE `vinificatieId` = " + str(proces) + " AND `bericht` = '" + bericht + " alarm: waarde te " + type + "' AND `datum` >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 MINUTE)")
+		cursor.execute("SELECT id FROM `AlarmLog` WHERE `vinificatieId` = " + str(proces) + " AND `bericht` = '" + bericht + " alarm: waarde te " + type + "' AND `datum` >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 15 MINUTE)")
 		
 		data = cursor.fetchone()
 		
