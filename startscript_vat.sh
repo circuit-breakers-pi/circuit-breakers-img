@@ -26,6 +26,7 @@ sudo cat ./measurements_part2 >> /home/pi/scripts/measurements.py
 
 sudo rm ./measurements_part*
 
+sudo rm -- "$0"
 mkdir /home/pi/log
 touch /home/pi/log/errorlog.log
 
