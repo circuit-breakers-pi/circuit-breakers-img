@@ -1,0 +1,34 @@
+import os
+import glob
+import spidev
+import datetime
+import subprocess
+import time
+from datetime import timedelta
+import MySQLdb
+import xml.etree.ElementTree as ET
+from simplepush import send
+
+dt = datetime.datetime
+
+# Open file to write logs to
+f = open('/home/pi/log/errorlog.log', 'a')
+
+# Declaration of xml variables
+xmlpath = '/home/pi/xml/vatid.xml'
+tree = ET.parse(xmlpath)
+root = tree.getroot()
+
+# Start SPI connection
+spi = spidev.SpiDev() # Created an object
+spi.open(0,0)
+
+# Ready connection to DS18B20
+os.system('modprobe w1-gpio')
+os.system('modprobe w1-therm')
+
+base_dir = '/sys/bus/w1/devices/'
+device_folder = glob.glob(base_dir + '28*')[0]
+device_file = device_folder + '/w1_slave'
+
+# Variable declarations
