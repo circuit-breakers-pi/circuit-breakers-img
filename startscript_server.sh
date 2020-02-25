@@ -1,5 +1,7 @@
 #!/bin/bash
-sudo apt-get install apache2
+
+sudo apt-get install -y git
+sudo apt-get install -y apache2
 
 sudo apt-get install -y mariadb-server php-mysql 
 sudo service apache2 restart
