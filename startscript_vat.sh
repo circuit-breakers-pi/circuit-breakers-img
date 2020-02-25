@@ -14,6 +14,16 @@ sudo pip3 install simplepush
 
 mkdir /home/pi/scripts
 
+touch /home/pi/scripts/measurements.py
+sudo cat ./measurements_part1 > /home/pi/scripts/measurements.py
+
+echo What is the IP address of your server?
+read ip
+
+sudo echo "serverIp = '$ip'" >> /home/pi/scripts/measurements.py
+
+sudo cat ./measurements_part2 >> /home/pi/scripts/measurements.py
+
 
 mkdir /home/pi/log
 touch /home/pi/log/errorlog.log
