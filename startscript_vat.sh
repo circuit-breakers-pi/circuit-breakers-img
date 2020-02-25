@@ -13,7 +13,7 @@ sudo pip3 install mysqlclient
 sudo pip3 install simplepush
 
 mkdir /home/pi/scripts
-mv measurements.py /home/pi/scripts
+
 
 mkdir /home/pi/log
 touch /home/pi/log/errorlog.log
