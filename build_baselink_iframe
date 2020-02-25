@@ -1,0 +1,624 @@
+let ServicesService = class ServicesService {
+    constructor(http) {
+        this.http = http;
+        this.isLoggedin = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](false);
+        this.userSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](new _models_gebruiker_model__WEBPACK_IMPORTED_MODULE_4__["Gebruiker"](null, null, '', '', '', '', '', '', ''));
+        this.user = this.userSubject.asObservable();
+        this.isAdminSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](false);
+        this.isAdmin = this.isAdminSubject.asObservable();
+    }
+    //Vinificatieprocessen
+    getAllProcessen() {
+        return this.http.get(baselink + "Vinificatie/read.php");
+    }
+    getAllInactieveProcessen() {
+        return this.http.get(baselink + "Vinificatie/nietActief.php");
+    }
+    addProces(process) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Vinificatie/create.php", {
+            body: JSON.stringify(process),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+        //return this.http.post<Process>(baselink + "Vinificatie/create.php", process);
+    }
+    updateProcess(process) {
+        //return this.http.put(baselink + "" + id, process);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Vinificatie/update.php", {
+            body: JSON.stringify(process),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'PUT'
+        }));
+    }
+    getLastProcess() {
+        return this.http.get(baselink + "Vinificatie/getLast.php");
+    }
+    addVinificatieDruif(druif) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "VinificatieDruif/create.php", {
+            body: JSON.stringify(druif),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    getProcesById(id) {
+        return this.http.get(baselink + "Vinificatie/read_one.php?id=" + id);
+    }
+    //Metingen
+    updateMeting(meting) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "SoortMeting/update.php", {
+            body: JSON.stringify(meting),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'PUT'
+        }));
+    }
+    getAllHandmatigeMetingenByVinificatieId(vinificatieId) {
+        return this.http.get(baselink + "HandmatigeMeting/getByVinificatieId.php?vinificatieId=" + vinificatieId);
+    }
+    addMeting(meting) {
+        //return this.http.post<Meting>(baselink + "", meting);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "HandmatigeMeting/create.php", {
+            body: JSON.stringify(meting),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    //events
+    getAllEventsByVinificatieId(vinificatieId) {
+        return this.http.get(baselink + "Event/getByVinificatieId.php?vinificatieId=" + vinificatieId);
+    }
+    addEvent(event) {
+        //return this.http.post<Event>(baselink + "", event);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Event/create.php", {
+            body: JSON.stringify(event),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    //vaten
+    getAllVaten() {
+        return this.http.get(baselink + "Vat/read.php");
+    }
+    getVatById(id) {
+        return this.http.get(baselink + "Vat/read_one.php?id=" + id);
+    }
+    getVatByProcess(proces) {
+        return this.http.get(baselink + "Vat/read_one.php?id=" + proces.vatId);
+    }
+    updateVat(vat) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Vat/update.php", {
+            body: JSON.stringify(vat),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'PUT'
+        }));
+    }
+    addVat(vat) {
+        //return this.http.post<Event>(baselink + "", event);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Vat/create.php", {
+            body: JSON.stringify(vat),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    deleteVat(item) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Vat/delete.php", {
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'DELETE'
+        }));
+    }
+    //persmethodes
+    getAllPersMethodes() {
+        return this.http.get(baselink + "PersMethode/read.php");
+    }
+    updateMethode(methode) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "PersMethode/update.php", {
+            body: JSON.stringify(methode),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'PUT'
+        }));
+    }
+    getPersmethodeById(id) {
+        return this.http.get(baselink + "Persmethode/read_one.php?id=" + id);
+    }
+    addMethode(methode) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "PersMethode/create.php", {
+            body: JSON.stringify(methode),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    deletePersMethode(item) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "PersMethode/delete.php", {
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'DELETE'
+        }));
+    }
+    //druifsoorten
+    getAllDruifsoorten() {
+        return this.http.get(baselink + "DruifSoort/read.php");
+    }
+    getAllDruifsoortenByVinificatieId(id) {
+        return this.http.get(baselink + "VinificatieDruif/getByVinificatieId.php?vinificatieId=" + id);
+    }
+    addDruifSoort(druif) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "DruifSoort/create.php", {
+            body: JSON.stringify(druif),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    deleteDruifSoort(item) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "DruifSoort/delete.php", {
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'DELETE'
+        }));
+    }
+    //metingsoorten
+    getAllMetingsoorten() {
+        return this.http.get(baselink + "SoortMeting/read.php");
+    }
+    getSoortMetingById(id) {
+        return this.http.get(baselink + "SoortMeting/read_one.php?id=" + id);
+    }
+    addMetingSoort(meting) {
+        //return this.http.post<Event>(baselink + "", event);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "SoortMeting/create.php", {
+            body: JSON.stringify(meting),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    deleteSoortMeting(item) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "SoortMeting/delete.php", {
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'DELETE'
+        }));
+    }
+    deleteMateriaal(item) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Materiaal/delete.php", {
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'DELETE'
+        }));
+    }
+    //eventsoorten
+    getAllEventsoorten() {
+        return this.http.get(baselink + "SoortEvent/read.php");
+    }
+    deleteEventSoort(item) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "SoortEvent/delete.php", {
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'DELETE'
+        }));
+    }
+    getSoortEventById(id) {
+        return this.http.get(baselink + "SoortEvent/read_one.php?id=" + id);
+    }
+    addEventSoort(event) {
+        //return this.http.post<Event>(baselink + "", event);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "SoortEvent/create.php", {
+            body: JSON.stringify(event),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    //alarmdata
+    getAlarmDataById(id) {
+        return this.http.get(baselink + "AlarmData/read_one.php?id=" + id);
+    }
+    getAlarmDataByProces(id) {
+        return this.http.get(baselink + "AlarmData/getByVinificatie.php?vinificatieId=" + id);
+    }
+    addAlarmData(alarmdata) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "AlarmData/create.php", {
+            body: JSON.stringify(alarmdata),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    getAlarmDataByVinAndSoort(vinId, alarmId) {
+        return this.http.get(baselink + "AlarmData/getByVinificatieSoort.php?vinificatieId=" + vinId + "&soortAlarmId=" + alarmId);
+    }
+    updateAlarmData(alarmdata) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "AlarmData/update.php", {
+            body: JSON.stringify(alarmdata),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'PUT'
+        }));
+    }
+    //gebruikers  
+    getGebruikerById(id) {
+        return this.http.get(baselink + "Gebruiker/read_one.php?id=" + id);
+    }
+    setUser(user) {
+        this.userSubject.next(user);
+    }
+    setIsAdmin(update) {
+        this.isAdminSubject.next(update);
+    }
+    getAllGebruikers() {
+        return this.http.get(baselink + "Gebruiker/read.php");
+    }
+    addGebruiker(gebruiker) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Gebruiker/create.php", {
+            body: JSON.stringify(gebruiker),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    deleteGebruiker(item) {
+        console.log(item);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Gebruiker/delete.php", {
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'DELETE'
+        }));
+    }
+    Authenticate(userLogin) {
+        return this.http.get(baselink + "Gebruiker/GetLogin.php?email=" + userLogin.email + "&wachtwoord=" + userLogin.wachtwoord);
+    }
+    updateGebruiker(gebruiker) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Gebruiker/update.php", {
+            body: JSON.stringify(gebruiker),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'PUT'
+        }));
+    }
+    //alarmdatagebruikers
+    getAllAlarmDataGebruikersByGebruiker(id) {
+        return this.http.get(baselink + "AlarmDataGebruiker/getByGebruikerId.php?gebruikerId=" + id);
+    }
+    getAllAlarmDataGebruikerByGebruiker(id) {
+        return this.http.get(baselink + "AlarmDataGebruiker/getByAlarmData.php?gebruikerId=" + id);
+    }
+    getAllAlarmDataGebruikers() {
+        return this.http.get(baselink + "AlarmDataGebruiker/read.php");
+    }
+    addAlarmDataGebruiker(item) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "AlarmDataGebruiker/create.php", {
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    deleteAlarmDataGebruiker(item) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "AlarmDataGebruiker/delete.php", {
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'DELETE'
+        }));
+    }
+    //rollen
+    getAllRollen() {
+        return this.http.get(baselink + "Rol/read.php");
+    }
+    //WijnTypes
+    getAllWijnTypes() {
+        return this.http.get(baselink + "WijnType/read.php");
+    }
+    addWijntype(item) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "WijnType/create.php", {
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    updateDruif(druif) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "DruifSoort/update.php", {
+            body: JSON.stringify(druif),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'PUT'
+        }));
+    }
+    updateEvent(SoortEvent) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "SoortEvent/update.php", {
+            body: JSON.stringify(SoortEvent),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'PUT'
+        }));
+    }
+    //Materiaal
+    getAllMaterialen() {
+        return this.http.get(baselink + "Materiaal/read.php");
+    }
+    updateMateriaal(materiaal) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Materiaal/update.php", {
+            body: JSON.stringify(materiaal),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'PUT'
+        }));
+    }
+    addMateriaal(item) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "Materiaal/create.php", {
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'no-cors'
+        }));
+    }
+    //wijnType
+    getWijnTypeById(id) {
+        return this.http.get(baselink + "WijnType/read_one.php?id=" + id);
+    }
+    updateWijnType(wijn) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(// wrap the fetch in a from if you need an rxjs Observable
+        fetch(baselink + "WijnType/update.php", {
+            body: JSON.stringify(wijn),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'PUT'
+        }));
+    }
+    //alarmLog
+    getAlarmLogByVinificatieId(vinificatieId) {
+        return this.http.get(baselink + "AlarmLog/getByVinificatieId.php?vinificatieId=" + vinificatieId);
+    }
+    //vinificatieGebruiker
+    getAllVinificatieGebruiker() {
+        return this.http.get(baselink + "VinificatieGebruiker/read.php");
+    }
+};
+ServicesService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+];
+ServicesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], ServicesService);
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/shared.module.ts":
+/*!*****************************************!*\
+  !*** ./src/app/shared/shared.module.ts ***!
+  \*****************************************/
+/*! exports provided: SharedModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return SharedModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm2015/flex-layout.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var ng_pick_datetime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ng-pick-datetime */ "./node_modules/ng-pick-datetime/picker.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
+
+
+
+
+
+
+
+
+
+
+let SharedModule = class SharedModule {
+};
+SharedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        declarations: [],
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatInputModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatButtonModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSidenavModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatListModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDatepickerModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
+            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
+            _angular_flex_layout__WEBPACK_IMPORTED_MODULE_6__["FlexLayoutModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatBadgeModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatToolbarModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatMenuModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClientModule"],
+            ng_pick_datetime__WEBPACK_IMPORTED_MODULE_8__["OwlDateTimeModule"],
+            ng_pick_datetime__WEBPACK_IMPORTED_MODULE_8__["OwlNativeDateTimeModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTabsModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCardModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCheckboxModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSortModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatPaginatorModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSnackBarModule"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__["NgbModule"]
+        ],
+        exports: [
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatInputModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatButtonModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSidenavModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatListModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDatepickerModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
+            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
+            _angular_flex_layout__WEBPACK_IMPORTED_MODULE_6__["FlexLayoutModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatBadgeModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatToolbarModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatMenuModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClientModule"],
+            ng_pick_datetime__WEBPACK_IMPORTED_MODULE_8__["OwlDateTimeModule"],
+            ng_pick_datetime__WEBPACK_IMPORTED_MODULE_8__["OwlNativeDateTimeModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTabsModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCardModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCheckboxModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSortModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatPaginatorModule"]
+        ]
+    })
+], SharedModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/toon-dashboard/toon-dashboard.component.css":
+/*!*************************************************************!*\
+  !*** ./src/app/toon-dashboard/toon-dashboard.component.css ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Rvb24tZGFzaGJvYXJkL3Rvb24tZGFzaGJvYXJkLmNvbXBvbmVudC5jc3MifQ== */");
+
+/***/ }),
+
+/***/ "./src/app/toon-dashboard/toon-dashboard.component.ts":
+/*!************************************************************!*\
+  !*** ./src/app/toon-dashboard/toon-dashboard.component.ts ***!
+  \************************************************************/
+/*! exports provided: ToonDashboardComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToonDashboardComponent", function() { return ToonDashboardComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
+
+
+
+
+let ToonDashboardComponent = class ToonDashboardComponent {
+    constructor(route, router, sanitizer) {
+        this.route = route;
+        this.router = router;
+        this.sanitizer = sanitizer;
+        this.id = 0;
+    }
+    ngOnInit() {
+        this.routeSub = this.route.params.subscribe(params => {
+            this.id = params['id'];
