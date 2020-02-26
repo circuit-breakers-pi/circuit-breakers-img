@@ -4,12 +4,12 @@ sudo cat ./build_begin_const > main-es2015.js
 
 echo "Wat is het ip adres van de server?"
 read ip
+echo "const baselink = 'http://$ip/api/';" >> main-es2015.js
 
+sudo cat ./build_baseline_iframe >> main-es2015.js
 echo "      this.iframe = 'http://$ip:3000/d/76B5JFZRz/vinificatie?orgId=1&refresh=5m&from=now-7d&to=now&theme=light&kiosk=tv&var-vat=' + this.id;" >> main-es2015.js
 
-sudo echo cat ./build_baseline_iframe >> main-es2015.js
 
-echo "const baselink = 'http://$ip/api/';" >> main-es2015.js
 sudo cat ./build_this_process >> main-es2015.js
 
 
