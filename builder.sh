@@ -82,12 +82,57 @@ sudo mv -f $pad /var/www/html
 #sudo mv -f /home/pi/project/download/BuildCircuitFrontend/CircuitFrontend/assets /var/www/html
 
 #sudo mv -f /home/pi/project/download/* /var/www/html/
+cd $beginmap
+
+totaalAantalLijnen=$(sed -n '$=' /var/www/html/main-es2015.js)
+
+baselinknr=$(awk '/const baselink/{ print NR; exit }' /var/www/html/main-es2015.js)
+
+bsnummer="$(($baselinknr-1))"
+bestand=/var/www/html/main-es2015.js
+
+cat $bestand | head -$bsnummer > ./build_begin_const
+
+thisiframenr=$(awk '/this.iframe/{ print NR; exit }' /var/www/html/main-es2015.js)
+
+
+
+beginLijn="$(($totaalAantalLijnen-$baselinknr))"
+tinummer="$(($thisiframenr-1))"
+aantalLijnen="$(($tinummer-$bsnummer))"
+
+cat $bestand | tail -$beginLijn  | head -$aantalLijnen > ./build_baselink_iframe
+
+
+procesiframenr=$(awk '/proces.iframe/{ print NR; exit }' /var/www/html/main-es2015.js)
+pinummer="$(($procesiframenr-1))"
+
+beginLijn="$(($totaalAantalLijnen-$thisiframenr))"
+aantalLijnen="$(($procesiframenr-$tinummer))"
+
+
+
+cat $bestand | tail -$beginLijn  | head -$aantalLijnen > ./build_this_proces
+
+
+beginLijn="$(($totaalAantalLijnen-$procesiframenr))"
+aantalLijnen="$(($totaalAantalLijnen-$pinummer))"
+cat $bestand | tail -$beginLijn | head -$aantalLijnen > ./build_process_einde
+
+
+
+
+
 
 sudo rm /var/www/html/main-es2015.js
 
 
 
-cd $beginmap
+
+
+
+
+
 touch ./main-es2015.js
 sudo cat ./build_begin_const > main-es2015.js
 
