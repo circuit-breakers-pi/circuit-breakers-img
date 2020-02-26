@@ -1,3 +1,6 @@
+#!bin/bash
+beginmap="$PWD"
+
 cd ~
 path=~
 map="/download"
@@ -84,7 +87,7 @@ sudo rm /var/www/html/main-es2015.js
 
 
 
-#!bin/bash
+cd $beginmap
 touch ./main-es2015.js
 sudo cat ./build_begin_const > main-es2015.js
 
